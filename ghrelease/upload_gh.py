@@ -18,6 +18,7 @@ class UploadGH(object):
         path = self.endpoint + "/releases"
         params = {"tag_name": tag,
                   "name": tag,
+                  "draft": True,
                   "body": "Release %s" % tag}
         resp = requests.post(path, data=json.dumps(params), headers=self.headers())
         resp.raise_for_status()

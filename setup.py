@@ -22,7 +22,7 @@ requirements = base_requirements
 
 setup(
     name='gh-release',
-    version='0.1.0',
+    version='0.1.2',
     description="Small cli to upload GH releases",
     long_description=readme,
     author="Antoine Legrand",
