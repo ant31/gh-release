@@ -1,6 +1,8 @@
 FROM python:3-alpine
 
-RUN pip install requests
-COPY upload_gh.py bin/
+RUN mkdir /code
+WORKDIR /code
+COPY . .
+RUN pip install -e .
 
-ENTRYPOINT ["bin/upload_gh.py"]
+ENTRYPOINT ["ghrelease"]

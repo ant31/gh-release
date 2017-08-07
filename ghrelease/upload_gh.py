@@ -1,3 +1,4 @@
+import json
 import mimetypes
 import os
 import requests
@@ -13,9 +14,20 @@ class UploadGH(object):
         headers.update(extra)
         return headers
 
+    def create_release(self, tag):
+        path = self.endpoint + "/releases"
+        params = {"tag_name": tag,
+                  "name": tag,
+                  "body": "Release %s" % tag}
+        resp = requests.post(path, data=json.dumps(params), headers=self.headers())
+        resp.raise_for_status()
+        return resp
+
     def get_release(self, tag):
         path = self.endpoint + "/releases/tags/%s" % tag
         resp = requests.get(path)
+        if resp.status_code == 404:
+            resp = self.create_release(tag)
         resp.raise_for_status()
         return resp.json()
 
